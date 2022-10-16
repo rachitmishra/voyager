@@ -1,8 +1,9 @@
 package com.voyager.weather.data.mappers
 
 import com.voyager.weather.data.remote.WeatherDataDto
-import com.voyager.weather.domain.WeatherData
-import com.voyager.weather.domain.WeatherType
+import com.voyager.weather.domain.weather.WeatherData
+import com.voyager.weather.domain.weather.WeatherInfo
+import com.voyager.weather.domain.weather.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -23,4 +24,8 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }.groupBy {
         it.time.dayOfMonth
     }
+}
+
+fun WeatherDataDto.toWeatherInfo(): WeatherInfo {
+    return WeatherInfo()
 }

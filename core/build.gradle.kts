@@ -1,22 +1,18 @@
 import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
 
 android {
     namespace = "com.voyager.core"
-    compileSdk = 32
+    compileSdk = Versions.sdkCompile
 
     defaultConfig {
-        applicationId = "com.voyager.core"
-        minSdk = 24
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.sdkMin
+        targetSdk= Versions.sdkTarget
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,14 +34,12 @@ android {
 
 dependencies {
 
-    api("androidx.core:core-ktx:1.7.0")
+    api("androidx.core:core-ktx:1.9.0")
     api("androidx.appcompat:appcompat:1.5.1")
     testApi("junit:junit:4.13.2")
-    api("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
     api("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    api("androidx.navigation:navigation-fragment-ktx:2.4.1")
-    api("androidx.navigation:navigation-ui-ktx:2.4.1")
+    api("androidx.navigation:navigation-fragment-ktx:2.5.2")
+    api("androidx.navigation:navigation-ui-ktx:2.5.2")
     api("androidx.annotation:annotation:1.5.0")
 }
 

@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.voyager"
-    compileSdk = 32
+    compileSdk = Versions.sdkCompile
 
     defaultConfig {
         applicationId = "com.voyager"
-        minSdk = 24
-        targetSdk= 32
+        minSdk = Versions.sdkMin
+        targetSdk= Versions.sdkTarget
         versionCode = 1
         versionName= "1.0"
 
@@ -38,7 +38,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
         resources {
@@ -49,4 +49,10 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":core-di"))
+    implementation(project(":design"))
+    implementation(project(":weather"))
+    implementation(project(":location"))
+    implementation(project(":core-async"))
+    implementation(project(":permissions"))
 }

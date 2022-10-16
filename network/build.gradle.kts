@@ -1,16 +1,17 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
     kotlin("plugin.serialization") version Versions.kotlin
 }
 
 android {
     namespace = "com.voyager.network"
-    compileSdk = 33
+    compileSdk = Versions.sdkCompile
 
     defaultConfig {
-        minSdk =  24
-        targetSdk = 33
+        minSdk = Versions.sdkMin
+        targetSdk= Versions.sdkTarget
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,7 +36,13 @@ dependencies {
     implementation("io.ktor:ktor-client-okhttp:2.1.2")
     api("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // convertors
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     api("com.google.code.gson:gson:2.9.1")
+
+    // mock tests
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    implementation(project(":core-di"))
+    implementation("io.coil-kt:coil-compose:2.2.2")
 }

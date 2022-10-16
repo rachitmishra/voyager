@@ -1,19 +1,16 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
 
 android {
     namespace = "com.voyager.db"
-    compileSdk = 33
+    compileSdk = Versions.sdkCompile
 
     defaultConfig {
-        applicationId = "com.voyager.db"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.sdkMin
+        targetSdk= Versions.sdkTarget
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

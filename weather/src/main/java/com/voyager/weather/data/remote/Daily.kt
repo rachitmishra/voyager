@@ -1,24 +1,26 @@
 package com.voyager.weather.data.remote
 
-data class Daily (
+import kotlinx.serialization.SerialName
+
+data class Daily(
     val time: List<String>,
     val weathercode: List<Double>,
 
-    @Json(name = "temperature_2m_max")
+    @SerialName("temperature_2m_max")
     val temperature2MMax: List<Double>,
 
-    @Json(name = "temperature_2m_min")
+    @SerialName("temperature_2m_min")
     val temperature2MMin: List<Double>,
 
     val sunrise: List<String>,
     val sunset: List<String>,
 
-    @Json(name = "rain_sum")
+    @SerialName("rain_sum")
     val rainSum: List<Double>,
 
-    @Json(name = "showers_sum")
+    @SerialName("showers_sum")
     val showersSum: List<Double>,
 
-    @Json(name = "snowfall_sum")
+    @SerialName("snowfall_sum")
     val snowfallSum: List<Double>
 )
