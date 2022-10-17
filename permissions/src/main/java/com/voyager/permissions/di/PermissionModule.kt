@@ -1,7 +1,7 @@
 package com.voyager.permissions.di
 
-import com.voyager.permissions.PermissionManager
-import com.voyager.permissions.PermissionManagerImpl
+import com.voyager.permissions.PermissionDelegate
+import com.voyager.permissions.PermissionDelegateImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ abstract class PermissionModule {
 
     @Binds
     @Singleton
-    abstract fun bindPermissionManager(permissionManagerImpl: PermissionManagerImpl): PermissionManager
+    abstract fun bindPermissionManager(permissionManagerImpl: PermissionDelegateImpl): PermissionDelegate
 }

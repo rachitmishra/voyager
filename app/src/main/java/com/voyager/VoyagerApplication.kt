@@ -1,52 +1,49 @@
 package com.voyager
 
 import android.app.Application
+import android.content.Intent
 import com.voager.location.LocationDelegateImpl
-import com.voyager.core.di.DependencyManager
-import com.voyager.core.di.DispatcherFactory
-import com.voyager.core.di.LocationFactory
-import com.voyager.core.di.PermissionFactory
-import com.voyager.core.di.RepositoryFactory
-import com.voyager.permissions.PermissionManagerImpl
-import com.voyager.weather.data.repository.WeatherRepositoryImpl
+import com.voyager.core.async.DispatcherDelegateImpl
+import com.voyager.core.di.Dep
+import com.voyager.core.di.VGDependency
+import com.voyager.core.di.VGDependencyFactory
+import com.voyager.core.di.VGModuleFactory
+import com.voyager.core.di.VGRemoteSourceFactory
+import com.voyager.core.di.VGViewModel
+import com.voyager.core.di.VGViewModelFactory
+import com.voyager.network.di.NetworkModule
+import com.voyager.permissions.PermissionDelegateImpl
+import com.voyager.weather.di.WeatherModuleFactory
 import dagger.hilt.android.HiltAndroidApp
 
 
-
-
 @HiltAndroidApp
-class VoyagerApplication : Application() {
+class VoyagerApplication : Application(), VGViewModelFactory, VGDependencyFactory {
 
-    fun appFactory(): DependencyManager {
-        return object: DependencyManager {
+    private val modules = hashMapOf("weather" to moduleFor("weather"))
 
-            override fun locationFactory(): LocationFactory {
-                return object: LocationFactory {
-                    override fun <T> get(): T {
-                        LocationDelegateImpl()
-                    }
+    private fun moduleFor(name: String): VGModuleFactory {
+        return when (name) {
+            else -> WeatherModuleFactory(this, object : VGRemoteSourceFactory {
+                private val retrofit = NetworkModule.getRetrofit(WeatherModuleFactory.baseUrl)
+
+                override fun <T> createSource(source: Class<T>): T {
+                    return retrofit.create(source)
                 }
-            }
-
-            override fun permissionFactory(): PermissionFactory {
-                return object: PermissionFactory {
-                    override fun <T> get(): T {
-                        return PermissionManagerImpl(this@VoyagerApplication) as T
-                    }
-                }
-            }
-
-            override fun repositoryFactory(): RepositoryFactory {
-                return object: RepositoryFactory {
-                    override fun <T> get(): T {
-                        return WeatherRepositoryImpl() as T
-                    }
-                }
-            }
-
-            override fun dispatcherFactory(): DispatcherFactory {
-                TODO("Not yet implemented")
-            }
+            })
         }
+    }
+
+
+    override fun getDep(key: Dep): VGDependency {
+        return when (key) {
+            Dep.Dispatcher -> DispatcherDelegateImpl()
+            Dep.Location -> LocationDelegateImpl(this, PermissionDelegateImpl(this))
+            Dep.Permission -> PermissionDelegateImpl(this)
+        }
+    }
+
+    override fun getOrCreate(key: String): VGViewModel {
+        return modules.getOrDefault(key, moduleFor(key)).createVM()
     }
 }

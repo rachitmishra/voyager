@@ -9,25 +9,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.voyager.core.di.VGDependency
 
-class PermissionManagerImpl(private val application: Application) : PermissionManager {
+class PermissionDelegateImpl(private val application: Application) : PermissionDelegate, VGDependency {
 
 
-    override fun hasPermission(permission: PermissionManager.Permission): Boolean {
-        if (permission == PermissionManager.Permission.Location) {
+    override fun hasPermission(permission: PermissionDelegate.Permission): Boolean {
+        if (permission == PermissionDelegate.Permission.Location) {
             return checkLocationPermission()
         }
 
-        if (permission == PermissionManager.Permission.PlayServices) {
+        if (permission == PermissionDelegate.Permission.PlayServices) {
             return checkPlayServices()
         }
 
         return false
     }
 
-    override fun requestPermission(context: Context, permission: PermissionManager.Permission) {
+    override fun requestPermission(context: Context, permission: PermissionDelegate.Permission) {
 
-        if (permission == PermissionManager.Permission.PlayServices) {
+        if (permission == PermissionDelegate.Permission.PlayServices) {
             return requestPlayServicesInstall(context)
         }
     }

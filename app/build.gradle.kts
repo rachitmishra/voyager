@@ -55,4 +55,6 @@ dependencies {
     implementation(project(":location"))
     implementation(project(":core-async"))
     implementation(project(":permissions"))
+    implementation(project(":network"))
+    implementation(project(":location"))
 }

@@ -1,27 +1,32 @@
 package com.voager.location
 
 import android.annotation.SuppressLint
+import android.app.Application
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.voager.location.data.LocationResult
 import com.voyager.permissions.MissingPermissionException
-import com.voyager.permissions.PermissionManager
+import com.voyager.permissions.PermissionDelegate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resumeWithException
 
 class LocationDelegateImpl(
-    private val locationClient: FusedLocationProviderClient, private val permissionManager: PermissionManager
+    app: Application,
+    private val permissionDelegate: PermissionDelegate,
 ) : LocationDelegate {
+
+    private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(app)
 
     @SuppressLint("MissingPermission")
     @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun getLocation(): LocationResult {
 
-        if (permissionManager.hasPermission(PermissionManager.Permission.Location).not()) {
+        if (permissionDelegate.hasPermission(PermissionDelegate.Permission.Location).not()) {
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 
-        if (permissionManager.hasPermission(PermissionManager.Permission.PlayServices).not()) {
+        if (permissionDelegate.hasPermission(PermissionDelegate.Permission.PlayServices).not()) {
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 

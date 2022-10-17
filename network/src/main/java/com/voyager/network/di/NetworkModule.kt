@@ -23,4 +23,16 @@ class NetworkModule {
         val factory = Json.asConverterFactory(contentType)
         return Retrofit.Builder().addConverterFactory(factory).build()
     }
+
+
+    companion object {
+
+        @OptIn(ExperimentalSerializationApi::class)
+        @JvmStatic
+        fun getRetrofit(url: String): Retrofit {
+            return Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(Json.asConverterFactory("application/json".toMediaType())).build()
+        }
+    }
+
 }

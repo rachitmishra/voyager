@@ -2,7 +2,7 @@ package com.voyager.permissions
 
 import android.content.Context
 
-interface PermissionManager {
+interface PermissionDelegate {
     enum class Permission {
         Location,
         PlayServices

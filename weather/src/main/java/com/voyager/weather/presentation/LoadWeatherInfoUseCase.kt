@@ -17,7 +17,6 @@ class LoadWeatherInfoUseCase @Inject constructor(
     private val repository: WeatherRepository,
     private val locationDelegate: LocationDelegate,
     private val dispatcherDelegate: DispatcherDelegate
-
 ) : UseCase<Result<WeatherInfo>> {
 
     override suspend operator fun invoke(): Result<WeatherInfo> {
