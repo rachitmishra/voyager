@@ -1,7 +1,9 @@
 package com.voyager.weather.data.remote
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Daily(
     val time: List<String>,
     val weathercode: List<Double>,

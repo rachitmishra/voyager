@@ -21,11 +21,9 @@ class LoadWeatherInfoUseCase @Inject constructor(
 
     override suspend operator fun invoke(): Result<WeatherInfo> {
 
-        withContext(dispatcherDelegate.io) {
-            val location = locationDelegate.getLocation()
-            return@withContext repository.getWeatherData(location.lat, location.lang)
+        val location = locationDelegate.getLocation()
+        return withContext(dispatcherDelegate.io) {
+            repository.getWeatherData(location.lat, location.lang)
         }
-
-        return Result.Error()
     }
 }

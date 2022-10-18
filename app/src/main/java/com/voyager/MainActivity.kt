@@ -7,14 +7,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.voyager.core.di.VGDependencyFactory
 import com.voyager.core.di.VGViewModelFactory
 import com.voyager.ui.theme.VoyagerTheme
 import com.voyager.weather.presentation.WeatherApp
 import com.voyager.weather.presentation.WeatherViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
@@ -44,13 +41,15 @@ class MainActivity : ComponentActivity() {
         }
         permissionLauncher.launch(
             arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
     }
 }
 
-fun MainActivity.getViewModel(module: String) = (application as VGViewModelFactory).getOrCreate(module)
+fun MainActivity.getViewModel(module: String) =
+    (application as VGViewModelFactory).getOrCreate(module)
 
 @Preview(showBackground = true)
 @Composable

@@ -1,8 +1,10 @@
 package com.voyager.weather.data.remote
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-data class Hourly (
+@Serializable
+data class Hourly(
     val time: List<String>,
 
     @SerialName("temperature_2m")

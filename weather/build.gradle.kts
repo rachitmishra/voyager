@@ -1,9 +1,8 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+    kotlin("android")
+    kotlin("plugin.serialization") version Versions.kotlin
 }
 
 android {
@@ -26,7 +25,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {

@@ -14,6 +14,8 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getWeatherData(lat: Double, long: Double): Result<WeatherInfo> {
         return try {
+            println("$lat $long")
+
             val response = api.getWeatherData(lat, long).toWeatherInfo()
             Result.Success(
                 data = response

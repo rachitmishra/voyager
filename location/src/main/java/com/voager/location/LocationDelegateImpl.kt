@@ -2,6 +2,10 @@ package com.voager.location
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.location.LocationManager
+import android.location.LocationManager.GPS_PROVIDER
+import android.location.LocationManager.NETWORK_PROVIDER
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.voager.location.data.LocationResult
@@ -16,7 +20,15 @@ class LocationDelegateImpl(
     private val permissionDelegate: PermissionDelegate,
 ) : LocationDelegate {
 
-    private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(app)
+    private val locationClient: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(app)
+
+    private val locationManager = app.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+    private fun LocationManager.isGpsEnabled() =
+        isProviderEnabled(NETWORK_PROVIDER) || isProviderEnabled(
+            GPS_PROVIDER
+        )
 
     @SuppressLint("MissingPermission")
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -27,6 +39,10 @@ class LocationDelegateImpl(
         }
 
         if (permissionDelegate.hasPermission(PermissionDelegate.Permission.PlayServices).not()) {
+            return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
+        }
+
+        if (locationManager.isGpsEnabled().not()) {
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 
