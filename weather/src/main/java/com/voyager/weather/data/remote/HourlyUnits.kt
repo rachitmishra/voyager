@@ -13,6 +13,9 @@ data class HourlyUnits(
     @SerialName("relativehumidity_2m")
     val relativehumidity2M: String,
 
+    @SerialName("windspeed_10m")
+    val windspeed10m: String,
+
     @SerialName("dewpoint_2m")
     val dewpoint2M: String,
 

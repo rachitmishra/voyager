@@ -6,6 +6,7 @@ import android.content.Context
 import android.location.LocationManager
 import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.voager.location.data.LocationResult
@@ -35,14 +36,17 @@ class LocationDelegateImpl(
     override suspend fun getLocation(): LocationResult {
 
         if (permissionDelegate.hasPermission(PermissionDelegate.Permission.Location).not()) {
+            Log.w("LocationDelegateImpl", "Location permission is not granted")
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 
         if (permissionDelegate.hasPermission(PermissionDelegate.Permission.PlayServices).not()) {
+            Log.w("LocationDelegateImpl", "Play services not available")
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 
         if (locationManager.isGpsEnabled().not()) {
+            Log.w("LocationDelegateImpl", "GPS is not enabled")
             return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
         }
 
@@ -50,23 +54,28 @@ class LocationDelegateImpl(
             locationClient.lastLocation.apply {
                 if (isComplete) {
                     if (isSuccessful) {
+                        Log.w("LocationDelegateImpl", "Location is successful")
                         cont.resume(result.toLocation()) {
                             LocationResult.Error().error
                         }
                     } else {
+                        Log.w("LocationDelegate", "Failed to get location", exception)
                         cont.resumeWithException(LocationResult.Error().error)
                     }
                     return@suspendCancellableCoroutine
                 }
                 addOnSuccessListener {
+                    //Log.w("LocationDelegateImpl", "Location is successful ${it.latitude}")
                     cont.resume(it.toLocation()) {
                         LocationResult.Error().error
                     }
                 }
                 addOnFailureListener {
+                    Log.w("LocationDelegate", "Failed to get location", it)
                     cont.resumeWithException(LocationResult.Error().error)
                 }
                 addOnCanceledListener {
+                    Log.w("LocationDelegate", "Failed to get location")
                     cont.cancel()
                 }
             }

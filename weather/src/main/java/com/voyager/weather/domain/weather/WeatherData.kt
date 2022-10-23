@@ -10,3 +10,8 @@ data class WeatherData(
     val humidity: Double,
     val weatherType: WeatherType
 )
+
+data class IndexedWeatherData(
+    val index: Int,
+    val data: WeatherData
+)

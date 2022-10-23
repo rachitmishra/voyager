@@ -11,13 +11,16 @@ android {
 
     defaultConfig {
         minSdk = Versions.sdkMin
-        targetSdk= Versions.sdkTarget
+        targetSdk = Versions.sdkTarget
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -36,6 +39,8 @@ dependencies {
     implementation("io.ktor:ktor-client-okhttp:2.1.2")
     api("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
 
     // convertors
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")

@@ -6,6 +6,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun WeatherApp(viewModel: WeatherViewModel) {
-    val state = viewModel.state
+    val state by remember { viewModel.state }
     if (state.isLoading) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator()
@@ -21,7 +22,7 @@ fun WeatherApp(viewModel: WeatherViewModel) {
         return
     }
     val snackBarHostState = remember { SnackbarHostState() }
-    if (state.error != null) {
+    if (state.error.isNotEmpty()) {
         LaunchedEffect(snackBarHostState) {
             snackBarHostState.showSnackbar(
                 message = state.error, actionLabel = "Retry."
