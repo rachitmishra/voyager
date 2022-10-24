@@ -31,6 +31,11 @@ android {
             )
         }
     }
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,5 +52,6 @@ dependencies {
     implementation(project(":core-di"))
     implementation(project(":core-async"))
     implementation(project(":location"))
+    implementation(project(":core"))
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 }

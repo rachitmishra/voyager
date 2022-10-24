@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 interface UseCase<T> {
 
-    suspend fun invoke(): T
+    suspend operator fun invoke(): T
 }
 
 class LoadWeatherInfoUseCase @Inject constructor(

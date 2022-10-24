@@ -1,7 +1,9 @@
 package com.voyager.weather.presentation
 
-data class WeatherState(
-    val isLoading: Boolean = true,
-    val error: String = "",
-    val weatherInfo: com.voyager.weather.domain.weather.WeatherInfo? = null
-)
+import com.voyager.weather.domain.weather.WeatherInfo
+
+sealed class WeatherState {
+    object Loading : WeatherState()
+    data class Error(val msg: String) : WeatherState()
+    data class Loaded(val weatherInfo: WeatherInfo) : WeatherState()
+}

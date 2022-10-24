@@ -33,6 +33,7 @@ android {
 
 dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
+    testApi("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}")
     implementation("androidx.work:work-runtime-ktx:${Versions.workManager}")
     androidTestImplementation("androidx.work:work-testing:${Versions.workManager}")
     implementation(project(":core-di"))

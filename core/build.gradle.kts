@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -12,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = Versions.sdkMin
-        targetSdk= Versions.sdkTarget
+        targetSdk = Versions.sdkTarget
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,11 +34,16 @@ dependencies {
 
     api("androidx.core:core-ktx:1.9.0")
     api("androidx.appcompat:appcompat:1.5.1")
-    testApi("junit:junit:4.13.2")
     api("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     api("androidx.navigation:navigation-fragment-ktx:2.5.2")
     api("androidx.navigation:navigation-ui-ktx:2.5.2")
     api("androidx.annotation:annotation:1.5.0")
+
+    testApi("junit:junit:4.13.2")
+    testApi("androidx.test:core:4.8.1")
+    testApi("org.mockito:mockito-core:4.8.1")
+    testApi("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testApi("io.mockk:mockk:1.13.2")
 }
 
 kapt {

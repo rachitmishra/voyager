@@ -1,1 +1,1 @@
-C:\Users\Rachit\AndroidStudioProjects\voyager\buildSrc\build\classes\kotlin\main\Versions.class
+/Users/rachit/src/voyager/buildSrc/build/classes/kotlin/main/Versions.class

@@ -6,35 +6,32 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.voyager.core.di.VGViewModel
 import com.voyager.utils.Result
+import com.voyager.weather.domain.weather.WeatherInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val loadWeather: LoadWeatherInfoUseCase
+    private val loadWeather: UseCase<Result<WeatherInfo>>
 ) : ViewModel(), VGViewModel {
 
-    var state = mutableStateOf(WeatherState())
+    var state = mutableStateOf<WeatherState>(WeatherState.Loading)
         private set
 
     fun loadWeatherInfo() {
         viewModelScope.launch {
             state.value = when (val result = loadWeather()) {
                 is Result.Error -> {
-                    Log.e("error", "${result.error.printStackTrace()}")
-                    state.value.copy(error = "Error")
-                }
-
-                is Result.Loading -> {
-                    Log.e("loading", "loading")
-                    state.value.copy(isLoading = true)
+                    WeatherState.Error("${result.error.printStackTrace()}")
                 }
 
                 is Result.Success -> {
                     Log.e("success", "success")
-                    state.value.copy(weatherInfo = result.data)
+                    WeatherState.Loaded(result.data!!)
                 }
+
+                is Result.Loading -> WeatherState.Loading
             }
         }
     }
