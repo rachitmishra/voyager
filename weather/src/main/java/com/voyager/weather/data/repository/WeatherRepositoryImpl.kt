@@ -1,6 +1,5 @@
 package com.voyager.weather.data.repository
 
-import com.voyager.core.di.VGRepository
 import com.voyager.utils.Result
 import com.voyager.weather.data.mappers.toWeatherInfo
 import com.voyager.weather.data.remote.WeatherApi
@@ -10,7 +9,7 @@ import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
     private val api: WeatherApi,
-) : WeatherRepository, VGRepository {
+) : WeatherRepository {
 
     override suspend fun getWeatherData(lat: Double, long: Double): Result<WeatherInfo> {
         return try {

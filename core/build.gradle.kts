@@ -40,10 +40,38 @@ dependencies {
     api("androidx.annotation:annotation:1.5.0")
 
     testApi("junit:junit:4.13.2")
-    testApi("androidx.test:core:4.8.1")
+    testApi("androidx.test:core:1.4.0")
     testApi("org.mockito:mockito-core:4.8.1")
     testApi("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testApi("io.mockk:mockk:1.13.2")
+
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
+    testApi("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}")
+    implementation("androidx.work:work-runtime-ktx:${Versions.workManager}")
+    androidTestImplementation("androidx.work:work-testing:${Versions.workManager}")
+
+    api("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    api("androidx.hilt:hilt-work:1.0.0")
+    implementation("com.google.android.gms:play-services-base:${Versions.playservicesBase}")
+
+    testImplementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("io.ktor:ktor-client-core:2.1.2")
+    implementation("io.ktor:ktor-client-okhttp:2.1.2")
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+
+    api("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    // convertors
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    api("com.google.code.gson:gson:2.9.1")
+    api("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // mock tests
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    api("io.coil-kt:coil-compose:2.2.2")
 }
 
 kapt {

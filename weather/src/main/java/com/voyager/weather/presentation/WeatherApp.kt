@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 fun WeatherApp(viewModel: WeatherViewModel) {
     val state by remember { viewModel.state }
     val snackBarHostState = remember { SnackbarHostState() }
+
     when (state) {
         is WeatherState.Error -> {
             LaunchedEffect(snackBarHostState) {

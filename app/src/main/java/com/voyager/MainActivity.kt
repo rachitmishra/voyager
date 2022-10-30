@@ -1,55 +1,51 @@
 package com.voyager
 
+import MovieApp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.voyager.core.di.VGViewModelFactory
+import com.voyager.movies.di.MovieModuleFactory
+import com.voyager.movies.ui.Action
+import com.voyager.ui.PermissionDelegate
 import com.voyager.ui.theme.VoyagerTheme
-import com.voyager.weather.presentation.WeatherApp
-import com.voyager.weather.presentation.WeatherViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
-        getViewModel("weather") as WeatherViewModel
+    private val viewModel by lazy {
+        MovieModuleFactory(
+            (application as VoyagerApplication).getApiFactory(MovieModuleFactory.BASE_URL)
+        ).viewModel()
     }
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private val permissionDelegate by lazy {
+        PermissionDelegate(this)
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkLocationPermission {
-            viewModel.loadWeatherInfo()
-        }
+//        checkLocationPermission {
+//            viewModel.loadWeatherInfo()
+//        }
+
+
+        viewModel.perform(Action.GetPopular)
+        viewModel.perform(Action.GetNowPlaying)
+        viewModel.perform(Action.GetTopRated)
 
         setContent {
             VoyagerTheme {
-                WeatherApp(viewModel)
+                MovieApp(viewModel)
             }
         }
     }
 
-    private fun checkLocationPermission(onResult: () -> Unit) {
-        permissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) {
-            onResult()
-        }
-        permissionLauncher.launch(
-            arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
-    }
-}
 
-fun MainActivity.getViewModel(module: String) =
-    (application as VGViewModelFactory).getOrCreate(module)
+}
 
 @Preview(showBackground = true)
 @Composable

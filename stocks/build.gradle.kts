@@ -32,9 +32,6 @@ dependencies {
 
     implementation(project(":db"))
     implementation(project(":network"))
-    implementation(project(":utils"))
     implementation(project(":core"))
-    implementation(project(":core-di"))
-    implementation(project(":core-async"))
     implementation(project(":design"))
 }

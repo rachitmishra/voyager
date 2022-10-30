@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId = "com.voyager"
         minSdk = Versions.sdkMin
-        targetSdk= Versions.sdkTarget
+        targetSdk = Versions.sdkTarget
         versionCode = 1
-        versionName= "1.0"
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -49,12 +49,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":core-di"))
     implementation(project(":design"))
-    implementation(project(":weather"))
-    implementation(project(":location"))
-    implementation(project(":core-async"))
-    implementation(project(":permissions"))
-    implementation(project(":network"))
+    implementation(project(":movies"))
     implementation(project(":location"))
 }

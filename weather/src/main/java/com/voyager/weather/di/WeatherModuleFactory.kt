@@ -1,12 +1,11 @@
 package com.voyager.weather.di
 
 import com.voager.location.LocationDelegate
-import com.voyager.core.async.DispatcherDelegate
-import com.voyager.core.di.Dep
-import com.voyager.core.di.VGDependencyFactory
-import com.voyager.core.di.VGModuleFactory
-import com.voyager.core.di.VGRemoteSourceFactory
-import com.voyager.core.di.VGViewModel
+import com.voyager.di.Dep
+import com.voyager.di.VGDependencyFactory
+import com.voyager.di.VGModuleFactory
+import com.voyager.di.VGRemoteSourceFactory
+import com.voyager.di.VGViewModel
 import com.voyager.weather.data.remote.WeatherApi
 import com.voyager.weather.data.repository.WeatherRepositoryImpl
 import com.voyager.weather.domain.repository.WeatherRepository
@@ -25,8 +24,7 @@ class WeatherModuleFactory(
     private fun getLoadWeatherInfoUseCase(): LoadWeatherInfoUseCase {
 
         val locationDelegate = depFactory.getDep(Dep.Location) as LocationDelegate
-        val dispatcherDelegate = depFactory.getDep(Dep.Dispatcher) as DispatcherDelegate
-        return LoadWeatherInfoUseCase(createRepository(), locationDelegate, dispatcherDelegate)
+        return LoadWeatherInfoUseCase(createRepository(), locationDelegate)
     }
 
     override fun createVM(): VGViewModel {

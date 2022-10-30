@@ -41,6 +41,6 @@ dependencies {
     debugApi("androidx.compose.ui:ui-tooling:${Versions.compose}")
     debugApi("androidx.compose.ui:ui-test-manifest:${Versions.compose}")
     api("androidx.activity:activity-compose:${Versions.composeActivity}")
-    api("androidx.constraintlayout:constraintlayout:${Versions.contraintLayout}")
+    api("androidx.compose.ui:ui-text-google-fonts:1.3.0")
 
 }

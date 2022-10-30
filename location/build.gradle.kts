@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = Versions.sdkMin
-        targetSdk= Versions.sdkTarget
+        targetSdk = Versions.sdkTarget
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -33,8 +33,5 @@ android {
 
 dependencies {
     implementation("com.google.android.gms:play-services-location:${Versions.playservicesLocation}")
-    implementation(project(":permissions"))
-    implementation(project(":utils"))
-    implementation(project(":core-di"))
-    implementation(project(":core-async"))
+    implementation(project(":core"))
 }

@@ -46,12 +46,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":network"))
-    implementation(project(":design"))
-    implementation(project(":utils"))
-    implementation(project(":core-di"))
-    implementation(project(":core-async"))
-    implementation(project(":location"))
     implementation(project(":core"))
+    implementation(project(":location"))
+    implementation(project(":design"))
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 }

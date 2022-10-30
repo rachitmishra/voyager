@@ -10,7 +10,6 @@ import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.voager.location.data.LocationResult
-import com.voyager.permissions.MissingPermissionException
 import com.voyager.permissions.PermissionDelegate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -21,15 +20,13 @@ class LocationDelegateImpl(
     private val permissionDelegate: PermissionDelegate,
 ) : LocationDelegate {
 
-    private val locationClient: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(app)
+    private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(app)
 
     private val locationManager = app.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    private fun LocationManager.isGpsEnabled() =
-        isProviderEnabled(NETWORK_PROVIDER) || isProviderEnabled(
-            GPS_PROVIDER
-        )
+    private fun LocationManager.isGpsEnabled() = isProviderEnabled(NETWORK_PROVIDER) || isProviderEnabled(
+        GPS_PROVIDER
+    )
 
     @SuppressLint("MissingPermission")
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -37,17 +34,17 @@ class LocationDelegateImpl(
 
         if (permissionDelegate.hasPermission(PermissionDelegate.Permission.Location).not()) {
             Log.w("LocationDelegateImpl", "Location permission is not granted")
-            return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
+            return LocationResult.Error(com.voyager.permissions.MissingPermissionException.MissingLocationPermissionException)
         }
 
         if (permissionDelegate.hasPermission(PermissionDelegate.Permission.PlayServices).not()) {
             Log.w("LocationDelegateImpl", "Play services not available")
-            return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
+            return LocationResult.Error(com.voyager.permissions.MissingPermissionException.MissingLocationPermissionException)
         }
 
         if (locationManager.isGpsEnabled().not()) {
             Log.w("LocationDelegateImpl", "GPS is not enabled")
-            return LocationResult.Error(MissingPermissionException.MissingLocationPermissionException)
+            return LocationResult.Error(com.voyager.permissions.MissingPermissionException.MissingLocationPermissionException)
         }
 
         return suspendCancellableCoroutine { cont ->

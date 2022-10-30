@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.voyager.core.di.VGViewModel
+import com.voyager.di.VGViewModel
 import com.voyager.utils.Result
 import com.voyager.weather.domain.weather.WeatherInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
