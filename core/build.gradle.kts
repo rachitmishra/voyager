@@ -72,6 +72,8 @@ dependencies {
     // mock tests
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     api("io.coil-kt:coil-compose:2.2.2")
+
+    api("androidx.navigation:navigation-compose:2.5.3")
 }
 
 kapt {
